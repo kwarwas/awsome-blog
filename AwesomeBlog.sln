@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeBlog", "AwesomeBlog\AwesomeBlog.csproj", "{573BB446-80EA-4887-A683-8246F35FBA7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeBlog.Api", "AwesomeBlog.Api\AwesomeBlog.Api.csproj", "{573BB446-80EA-4887-A683-8246F35FBA7F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeBlog.Model", "AwesomeBlog.Model\AwesomeBlog.Model.csproj", "{D5977771-8D46-4BE5-A4BF-90444113585E}"
 EndProject

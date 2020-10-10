@@ -1,0 +1,290 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2020-10-10T15:20:32.971Z",
+  "__export_source": "insomnia.desktop.app:v2020.4.1",
+  "resources": [
+    {
+      "_id": "req_127bedcfa9ec4adb96a5a007bd34f61c",
+      "parentId": "fld_f4b439c42482490a9cfb6d590724210b",
+      "modified": 1602343207406,
+      "created": 1602321269898,
+      "url": "{{ rootUrl }}/post/{% response 'body', 'req_ce3d2a1edd1348f18bbdb82bd343fbce', 'b64::JFswXS5pZA==::46b', 'always', 60 %}",
+      "name": "Create Post",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"id\": \"{% uuid 'v4' %}\",\n\t\"title\": \"Fajny Blog 2\",\n\t\"content\": \"Pierwszy wpis\",\n\t\"createdOn\": \"{% now 'iso-8601', '' %}\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e83dc8245be946739fb8e84a602dfaae"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1601109818020.75,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_f4b439c42482490a9cfb6d590724210b",
+      "parentId": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
+      "modified": 1602343202812,
+      "created": 1602343202812,
+      "name": "Post",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1602343202812,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
+      "parentId": null,
+      "modified": 1601108555200,
+      "created": 1601108555200,
+      "name": "Awesome Blog",
+      "description": "",
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_967302ea02e143978090b24ec7276207",
+      "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
+      "modified": 1601111331306,
+      "created": 1601111317195,
+      "url": "{{ rootUrl }}/blog/{% response 'body', 'req_ce3d2a1edd1348f18bbdb82bd343fbce', 'b64::JFswXS5pZA==::46b', 'always', 60 %}",
+      "name": "Remove Blog",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1601109994851,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_e082a2706f9446bcbc992765494c21c7",
+      "parentId": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
+      "modified": 1601108566403,
+      "created": 1601108566403,
+      "name": "Blog",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1601108566403,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_9a9b6bb8f16041058521aa52d1ef70ed",
+      "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
+      "modified": 1602317978935,
+      "created": 1601109994801,
+      "url": "{{ rootUrl }}/blog",
+      "name": "Create Blog",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"id\": \"{% uuid 'v4' %}\",\n\t\"name\": \"Fajny Blog 2\",\n\t\"createdOn\": \"{% now 'iso-8601', '' %}\",\n\t\"author\": {\n\t\t\"firstName\": \"Jan\",\n\t\t\"lastName\": \"Malinowski\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e83dc8245be946739fb8e84a602dfaae"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1601109994801,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_487a2457fb5a475a83979b4b121181b6",
+      "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
+      "modified": 1602320369465,
+      "created": 1602319781382,
+      "url": "{{ rootUrl }}/blog",
+      "name": "Create Blog Validation Errors",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"123\",\n\t\"createdOn\": \"2020-11-10T08:53:21.839Z\",\n\t\"author\": {\n\t\t\"firstName\": \"Jan\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e83dc8245be946739fb8e84a602dfaae"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1601109641240.5,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_78cc2e8866c34f929aa0e34edae95344",
+      "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
+      "modified": 1601111092169,
+      "created": 1601111034414,
+      "url": "{{ rootUrl }}/blog",
+      "name": "Update Blog",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"id\": \"{% response 'body', 'req_ce3d2a1edd1348f18bbdb82bd343fbce', 'b64::JFswXS5pZA==::46b', 'always', 60 %}\",\n\t\"name\": \"Zmieniony blog z Insomnia\",\n\t\"createdOn\": \"{% now 'iso-8601', '' %}\",\n\t\"author\": {\n\t\t\"firstName\": \"Jan Insomnia\",\n\t\t\"lastName\": \"Malinowski Insomnia\"\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e83dc8245be946739fb8e84a602dfaae"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1601109287680,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_3fe99436650c4622bf525cac18427a9c",
+      "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
+      "modified": 1601109330187,
+      "created": 1601108672356,
+      "url": "{{ rootUrl }}/blog/{% response 'body', 'req_ce3d2a1edd1348f18bbdb82bd343fbce', 'b64::JFswXS5pZA==::46b', 'always', 60 %}",
+      "name": "Get Blog by Id",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1601108580559,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_ce3d2a1edd1348f18bbdb82bd343fbce",
+      "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
+      "modified": 1601109082523,
+      "created": 1601108580450,
+      "url": "{{ rootUrl }}/blog",
+      "name": "Get Blogs",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1601108580509,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_d363de8feed0d46e4cea13f4a7becdffc937421c",
+      "parentId": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
+      "modified": 1601108555299,
+      "created": 1601108555299,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1601108555299,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_d363de8feed0d46e4cea13f4a7becdffc937421c",
+      "parentId": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
+      "modified": 1601108555301,
+      "created": 1601108555301,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_6e337c6c993f436d980ebfa399dd87ea",
+      "parentId": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
+      "modified": 1601108555222,
+      "created": 1601108555222,
+      "fileName": "Awesome Blog",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_7d9186f218e84af9849f4cd0dcfed185",
+      "parentId": "env_d363de8feed0d46e4cea13f4a7becdffc937421c",
+      "modified": 1601108814974,
+      "created": 1601108774023,
+      "name": "Development",
+      "data": {
+        "rootUrl": "https://localhost:5001"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "rootUrl"
+        ]
+      },
+      "color": "#25a244",
+      "isPrivate": false,
+      "metaSortKey": 1601108774023,
+      "_type": "environment"
+    }
+  ]
+}

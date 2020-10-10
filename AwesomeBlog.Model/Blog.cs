@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AwesomeBlog.Model
 {
@@ -8,6 +9,7 @@ namespace AwesomeBlog.Model
         public string Name { get; set; }
         public DateTime CreatedOn { get; set; }
         public Author Author { get; set; }
+        public ICollection<Post> Posts { get; set; } = new List<Post>();
 
         public Blog()
         {
@@ -19,6 +21,11 @@ namespace AwesomeBlog.Model
             Name = name;
             CreatedOn = createdOn;
             Author = author;
+        }
+
+        public void AddPost(Post post)
+        {
+            Posts.Add(post);
         }
     }
 }

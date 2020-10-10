@@ -1,11 +1,14 @@
+using System.Globalization;
 using AwesomeBlog.Infrastructure;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace AwesomeBlog
+namespace AwesomeBlog.Api
 {
     public class Startup
     {
@@ -19,8 +22,13 @@ namespace AwesomeBlog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
 
+            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("pl");
+            
+            services.AddSingleton(provider => new DatabaseContext("mongodb://localhost:27017"));
             services.AddSingleton<BlogRepository>();
             
             EntityMappings.Map();

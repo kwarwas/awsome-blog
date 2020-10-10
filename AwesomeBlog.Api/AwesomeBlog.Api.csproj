@@ -9,5 +9,9 @@
       <ProjectReference Include="..\AwesomeBlog.Model\AwesomeBlog.Model.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentValidation.AspNetCore" Version="9.2.0" />
+    </ItemGroup>
+
 
 </Project>

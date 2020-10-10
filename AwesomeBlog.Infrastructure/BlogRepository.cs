@@ -1,23 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AwesomeBlog.Model;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace AwesomeBlog.Infrastructure
 {
     public class BlogRepository
     {
-        private static readonly ICollection<Blog> _blogCollection = new List<Blog>();
         private readonly DatabaseContext _databaseContext;
 
-        public BlogRepository()
+        public BlogRepository(DatabaseContext databaseContext)
         {
-            _databaseContext = new DatabaseContext();
+            _databaseContext = databaseContext;
         }
 
-        public ICollection<Blog> GetBlogs() => _blogCollection;
-        public Blog GetBlog(Guid id) => _blogCollection.FirstOrDefault(x => x.Id == id);
+        public async Task<ICollection<Blog>> GetBlogs() => await _databaseContext
+            .GetCollection<Blog>()
+            .AsQueryable()
+            .ToListAsync();
+        
+        public async Task<Blog> GetBlog(Guid id) => await _databaseContext
+            .GetCollection<Blog>()
+            .AsQueryable()
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         public async Task Create(Blog blog)
         {
@@ -26,9 +33,9 @@ namespace AwesomeBlog.Infrastructure
                 .InsertOneAsync(blog);
         }
 
-        public bool Update(Blog blog)
+        public async Task<bool> Update(Blog blog)
         {
-            var entity = _blogCollection.FirstOrDefault(x => x.Id == blog.Id);
+            var entity = await GetBlog(blog.Id);
 
             if (entity == null)
                 return false;
@@ -36,20 +43,37 @@ namespace AwesomeBlog.Infrastructure
             entity.Author = blog.Author;
             entity.Name = blog.Name;
             entity.CreatedOn = blog.CreatedOn;
-            
+
+            await _databaseContext
+                .GetCollection<Blog>()
+                .ReplaceOneAsync(x => x.Id == blog.Id, entity);
+
             return true;
         }
 
-        public bool Delete(Guid id)
+        public async Task<bool> AddPost(Guid id, Post post)
         {
-            var entity = _blogCollection.FirstOrDefault(x => x.Id == id);
+            var entity = await GetBlog(id);
 
             if (entity == null)
                 return false;
 
-            _blogCollection.Remove(entity);
+            entity.AddPost(post);
+
+            await _databaseContext
+                .GetCollection<Blog>()
+                .ReplaceOneAsync(x => x.Id == id, entity);
 
             return true;
+        }
+        
+        public async Task<bool> Delete(Guid id)
+        {
+            var result = await _databaseContext
+                .GetCollection<Blog>()
+                .DeleteOneAsync(x => x.Id == id);
+
+            return result.DeletedCount > 0;
         }
     }
 }
