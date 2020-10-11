@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using AwesomeBlog.Api.ViewModels;
 using AwesomeBlog.Infrastructure;
 using AwesomeBlog.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeBlog.Api.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     public class BlogController : ControllerBase
     {
