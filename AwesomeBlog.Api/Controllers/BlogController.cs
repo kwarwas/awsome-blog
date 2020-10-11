@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AwesomeBlog.Api.ViewModels;
 using AwesomeBlog.Infrastructure;
 using AwesomeBlog.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AwesomeBlog.Api.Controllers
@@ -36,6 +37,8 @@ namespace AwesomeBlog.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Create([FromBody] CreateBlogViewModel blog)
         {
             if (!ModelState.IsValid)

@@ -31,6 +31,8 @@ namespace AwesomeBlog.Api
             services.AddSingleton(provider => new DatabaseContext("mongodb://localhost:27017"));
             services.AddSingleton<BlogRepository>();
             
+            services.AddSwaggerGen();
+            
             EntityMappings.Map();
         }
 
@@ -42,6 +44,13 @@ namespace AwesomeBlog.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Awesome Blob V1");
+            });
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
