@@ -1,9 +1,82 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2020-10-10T15:20:32.971Z",
+  "__export_date": "2020-10-24T09:29:46.933Z",
   "__export_source": "insomnia.desktop.app:v2020.4.1",
   "resources": [
+    {
+      "_id": "req_1f6d3362e71a43499b92c823702a0d6f",
+      "parentId": "fld_76e96f23b64b4ee890294794045ebb71",
+      "modified": 1603530970761,
+      "created": 1603528609989,
+      "url": "{{ rootUrl }}/user/login",
+      "name": "Login",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/x-www-form-urlencoded",
+        "params": [
+          {
+            "name": "UserName",
+            "value": "jan",
+            "description": "",
+            "id": "pair_d41f6c08fbb44b17b89914d627f079cd"
+          },
+          {
+            "name": "Password",
+            "value": "password",
+            "description": "",
+            "id": "pair_9a8c8da0c3d945cc9640fbf0bd0a068e"
+          },
+          {
+            "name": "Audience",
+            "value": "https://localhost:5001",
+            "description": "",
+            "id": "pair_af83722be5f74e2ab2bcdcf4165097fc"
+          }
+        ]
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/x-www-form-urlencoded",
+          "id": "pair_70aba179a7d044bfb3f2132353231421"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1603528609989,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_76e96f23b64b4ee890294794045ebb71",
+      "parentId": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
+      "modified": 1602354537408,
+      "created": 1602354537408,
+      "name": "User",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1602354537408,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
+      "parentId": null,
+      "modified": 1601108555200,
+      "created": 1601108555200,
+      "name": "Awesome Blog",
+      "description": "",
+      "scope": null,
+      "_type": "workspace"
+    },
     {
       "_id": "req_127bedcfa9ec4adb96a5a007bd34f61c",
       "parentId": "fld_f4b439c42482490a9cfb6d590724210b",
@@ -49,16 +122,6 @@
       "_type": "request_group"
     },
     {
-      "_id": "wrk_8d18b93829804e86b2e49ddf1ba5f9ca",
-      "parentId": null,
-      "modified": 1601108555200,
-      "created": 1601108555200,
-      "name": "Awesome Blog",
-      "description": "",
-      "scope": null,
-      "_type": "workspace"
-    },
-    {
       "_id": "req_967302ea02e143978090b24ec7276207",
       "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
       "modified": 1601111331306,
@@ -96,7 +159,7 @@
     {
       "_id": "req_9a9b6bb8f16041058521aa52d1ef70ed",
       "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
-      "modified": 1602317978935,
+      "modified": 1603530899624,
       "created": 1601109994801,
       "url": "{{ rootUrl }}/blog",
       "name": "Create Blog",
@@ -112,6 +175,12 @@
           "name": "Content-Type",
           "value": "application/json",
           "id": "pair_e83dc8245be946739fb8e84a602dfaae"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_1f6d3362e71a43499b92c823702a0d6f', 'b64::JC5hY2Nlc3NfdG9rZW4=::46b', 'always', 60 %}",
+          "description": "",
+          "id": "pair_9b8f39d107ca42e197b1c00c8fb72b1a"
         }
       ],
       "authentication": {},
@@ -192,7 +261,7 @@
     {
       "_id": "req_3fe99436650c4622bf525cac18427a9c",
       "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
-      "modified": 1601109330187,
+      "modified": 1603530571923,
       "created": 1601108672356,
       "url": "{{ rootUrl }}/blog/{% response 'body', 'req_ce3d2a1edd1348f18bbdb82bd343fbce', 'b64::JFswXS5pZA==::46b', 'always', 60 %}",
       "name": "Get Blog by Id",
@@ -200,7 +269,14 @@
       "method": "GET",
       "body": {},
       "parameters": [],
-      "headers": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYW4iLCJqdGkiOiIxNWZkNDAwYS1mNzM5LTQ1OWItOWFhNS0zZTBmMDc0ZTc5ZWUiLCJibG9nIjoiYXdlc29tZSIsIm5iZiI6MTYwMzUzMDI5MCwiZXhwIjoxNjAzNTMzODkwLCJpYXQiOjE2MDM1MzAyOTAsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo1MDAxZmRzZnNkZmZlcyJ9.hguLMNaO5ic9cRaT6MEZjjtmOlmrpJHPPM6go2f3xCI",
+          "description": "",
+          "id": "pair_29890b98b0394eaaa5b1203d039a644f"
+        }
+      ],
       "authentication": {},
       "metaSortKey": -1601108580559,
       "isPrivate": false,
@@ -215,7 +291,7 @@
     {
       "_id": "req_ce3d2a1edd1348f18bbdb82bd343fbce",
       "parentId": "fld_e082a2706f9446bcbc992765494c21c7",
-      "modified": 1601109082523,
+      "modified": 1603530650289,
       "created": 1601108580450,
       "url": "{{ rootUrl }}/blog",
       "name": "Get Blogs",
@@ -224,7 +300,14 @@
       "body": {},
       "parameters": [],
       "headers": [],
-      "authentication": {},
+      "authentication": {
+        "type": "oauth2",
+        "grantType": "password",
+        "username": "jan",
+        "password": "password",
+        "accessTokenUrl": "{{ rootUrl }}/user/login",
+        "audience": "https://localhost:5001"
+      },
       "metaSortKey": -1601108580509,
       "isPrivate": false,
       "settingStoreCookies": true,
