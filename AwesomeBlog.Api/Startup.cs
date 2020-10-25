@@ -30,6 +30,7 @@ namespace AwesomeBlog.Api
             
             services.AddSingleton(provider => new DatabaseContext("mongodb://localhost:27017"));
             services.AddSingleton<BlogRepository>();
+            services.AddSingleton<UserRepository>();
             
             services.AddSwaggerGen();
             
