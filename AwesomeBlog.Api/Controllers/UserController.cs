@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using AwesomeBlog.Api.ViewModels;
+using AwesomeBlog.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -19,6 +20,25 @@ namespace AwesomeBlog.Api.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly UserRepository _userRepository;
+
+        public UserController(UserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        [HttpPost]
+        public ActionResult Create([FromBody] CreateUserViewModel createUserViewModel)
+        {
+            var hashed = BCrypt.Net.BCrypt.HashPassword(createUserViewModel.Password);
+            
+            return Ok(new
+            {
+                pass = hashed,
+                ver = BCrypt.Net.BCrypt.Verify(createUserViewModel.Password, "$2b$10$vnoE2kgbxZq8ArR4sJvnl.fel9mit2/1qoUpIpJyYXrv3zW8BVkaC")
+            });
+        }
+
         [HttpPost("login")]
         public ActionResult Login([FromForm] LoginViewModel loginViewModel)
         {
@@ -36,7 +56,9 @@ namespace AwesomeBlog.Api.Controllers
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(JwtRegisteredClaimNames.Sub, loginViewModel.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(ClaimTypes.Role, "Admin"),
+                    new Claim(ClaimTypes.Role, "User"),
                 }),
                 Expires = DateTime.UtcNow.AddSeconds(jwtSettings.LifetimeInSeconds),
                 SigningCredentials = new SigningCredentials

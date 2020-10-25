@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Security.Claims;
 using System.Text;
 using AwesomeBlog.Api.Controllers;
 using AwesomeBlog.Infrastructure;
@@ -48,6 +49,7 @@ namespace AwesomeBlog.Api
 
             services.AddSingleton(provider => new DatabaseContext("mongodb://localhost:27017"));
             services.AddSingleton<BlogRepository>();
+            services.AddSingleton<UserRepository>();
 
             EntityMappings.Map();
         }
