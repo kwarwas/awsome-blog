@@ -16,6 +16,11 @@ namespace AwesomeBlog.Infrastructure
             _databaseContext = databaseContext;
         }
 
+        public async Task<User> GetUser(string userName) => await _databaseContext
+            .GetCollection<User>()
+            .AsQueryable()
+            .FirstOrDefaultAsync(x => x.UserName == userName);
+        
         public async Task Create(User user)
         {
             await _databaseContext

@@ -2,8 +2,10 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using AwesomeBlog.Api.ViewModels;
 using AwesomeBlog.Infrastructure;
+using AwesomeBlog.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -28,21 +30,26 @@ namespace AwesomeBlog.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([FromBody] CreateUserViewModel createUserViewModel)
+        public async Task<ActionResult> Create([FromBody] CreateUserViewModel createUserViewModel)
         {
             var hashed = BCrypt.Net.BCrypt.HashPassword(createUserViewModel.Password);
             
-            return Ok(new
-            {
-                pass = hashed,
-                ver = BCrypt.Net.BCrypt.Verify(createUserViewModel.Password, "$2b$10$vnoE2kgbxZq8ArR4sJvnl.fel9mit2/1qoUpIpJyYXrv3zW8BVkaC")
-            });
+            var user = new User(Guid.NewGuid(), createUserViewModel.UserName, hashed);
+
+            await _userRepository.Create(user);
+            
+            return Ok();
         }
 
         [HttpPost("login")]
-        public ActionResult Login([FromForm] LoginViewModel loginViewModel)
+        public async Task<ActionResult> Login([FromForm] LoginViewModel loginViewModel)
         {
-            if (loginViewModel.Password != "password")
+            var user = await _userRepository.GetUser(loginViewModel.UserName);
+            
+            if (user is null)
+                return BadRequest();
+            
+            if (!BCrypt.Net.BCrypt.Verify(loginViewModel.Password, user.Password))
             {
                 return BadRequest();
             }
